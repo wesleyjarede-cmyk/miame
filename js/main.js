@@ -132,6 +132,32 @@
     esperandoToque = true;
     EVENTOS_GESTO.forEach(function (t) { document.addEventListener(t, ligarSomAoInteragir, true); });
   }
+
+  /* Plano B: alguns aparelhos bloqueiam QUALQUER vídeo automático (iPhone no
+     Modo de Pouca Energia, economia de dados). Aí aparece a logo parada e o
+     primeiro toque/clique na página começa a animação — sem aviso na tela. */
+  var esperandoParaTocar = false;
+  function tocarNoPrimeiroToque() {
+    if (!esperandoParaTocar) return;
+    esperandoParaTocar = false;
+    EVENTOS_GESTO.forEach(function (t) { document.removeEventListener(t, tocarNoPrimeiroToque, true); });
+    palco.classList.remove("is-final", "is-luz", "is-aceso");
+    try { video.currentTime = 0; } catch (e) {}
+    video.muted = false; // o toque é um gesto do visitante: agora o som é permitido
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {
+      video.muted = true;
+      var p2 = video.play();
+      if (p2 && p2.catch) p2.catch(mostrarFinal);
+    });
+  }
+  function aguardarToqueParaTocar() {
+    if (esperandoParaTocar) return;
+    esperandoParaTocar = true;
+    EVENTOS_GESTO.forEach(function (t) { document.addEventListener(t, tocarNoPrimeiroToque, true); });
+  }
+  function bloqueadoDeVez() { mostrarFinal(); aguardarToqueParaTocar(); }
+
   function tocarComSom() {
     video.muted = false;
     var p = video.play();
@@ -140,20 +166,54 @@
       // som bloqueado: toca mudo
       video.muted = true;
       var p2 = video.play();
-      if (p2 && p2.then) p2.then(aguardarToque).catch(mostrarFinal);
+      if (p2 && p2.then) {
+        p2.then(function () { try { aguardarToque(); } catch (e) {} }, bloqueadoDeVez);
+      }
     });
+    // segurança: se em 3 s o vídeo nem começou (aparelho travou o autoplay sem avisar)
+    setTimeout(function () {
+      if (video.paused && video.currentTime === 0 && !video.ended) bloqueadoDeVez();
+    }, 3000);
   }
 
-  video.addEventListener("play", loopLuz);
+  video.addEventListener("play", function () {
+    esperandoParaTocar = false;
+    // se a logo parada estava na frente (plano B) e o vídeo começou do início, mostra o vídeo
+    if (video.currentTime < 0.5) palco.classList.remove("is-final", "is-luz", "is-aceso");
+    loopLuz();
+  });
   video.addEventListener("ended", function () {
     palco.classList.add("is-luz", "is-aceso");
     pintarLuz(video);
     pararDeEsperar();
   });
-  video.addEventListener("error", mostrarFinal, true);
+  // só desiste do vídeo se TODAS as fontes falharem (não por uma fonte que não serve para a tela)
+  var fontes = video.querySelectorAll("source");
+  if (fontes.length) fontes[fontes.length - 1].addEventListener("error", mostrarFinal);
+  video.addEventListener("error", mostrarFinal);
 
-  if (menosMovimento) mostrarFinal(); // quem pediu menos movimento vê direto a logo
-  else tocarComSom();
+  // O vídeo da marca toca mesmo com "Reduzir movimento" ligado no aparelho:
+  // é curto (5 s), não repete e é o conteúdo principal. As demais animações seguem reduzidas.
+
+  // Toda vez que a página é aberta ou recarregada, a abertura roda de novo, do topo.
+  // (Exceção: link direto para uma coleção, ex.: #colecao/tenis.)
+  var abrindoColecaoPorLink = /^#colecao\//.test(location.hash);
+  if (!abrindoColecaoPorLink) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    // âncoras de seção (#colecoes, #vitrine...) não levam para baixo ao recarregar
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+  tocarComSom();
+
+  // Celular voltando para a página pela memória (botão Voltar): roda a abertura de novo
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted || /^#colecao\//.test(location.hash)) return;
+    window.scrollTo(0, 0);
+    palco.classList.remove("is-final", "is-luz", "is-aceso");
+    try { video.currentTime = 0; } catch (er) {}
+    tocarComSom();
+  });
 
   // Transição de câmera: ao rolar, o palco recua e escurece
   var faixa = $("[data-faixa]");
