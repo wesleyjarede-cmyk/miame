@@ -3,6 +3,11 @@
 Situação em **17/11/2026** (2ª rodada: correções visuais e fotos reais).
 Pasta do projeto: `C:\Users\e4u\Downloads\miami-store`
 
+## 0. Site publicado
+- **Link para o cliente:** https://wesleyjarede-cmyk.github.io/miame/
+- Repositório: https://github.com/wesleyjarede-cmyk/miame (público; GitHub Pages pela branch main, pasta raiz).
+- Para atualizar o site no ar: commit + `git push` (o GitHub republica sozinho em 1 ou 2 minutos).
+
 ## 1. Como abrir
 1. No Chrome: `"C:\Program Files\Google\Chrome\Application\chrome.exe" "C:\Users\e4u\Downloads\miami-store\index.html"`
 2. Para ver como fica no celular: abra `Área de Trabalho\claude code\miami-store-no-celular.html` no Chrome.

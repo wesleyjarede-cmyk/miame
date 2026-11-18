@@ -1,6 +1,8 @@
 # Miami Store — site
 
 Site de apresentação da loja de roupas Miami Store (@miamistore.ura).
+
+**No ar:** https://wesleyjarede-cmyk.github.io/miame/ (GitHub Pages, repositório wesleyjarede-cmyk/miame). Para atualizar o site publicado: faça commit e git push.
 HTML, CSS e JS puros: abra o `index.html` no Chrome, sem instalar nada.
 
 - `js/dados.js`: contato, categorias e produtos. **Edite só aqui.**
