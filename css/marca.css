@@ -1,0 +1,53 @@
+/* =========================================================
+   MIAMI STORE — identidade visual (troque a marca só aqui)
+   Conceito: "do traço ao neon" — a fachada desenhada a lápis
+   que acende em laranja, como no vídeo de abertura.
+   ========================================================= */
+
+@font-face {
+  font-family: "Dela Gothic One";
+  src: url("../fonts/dela-gothic-one-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Dela Gothic One";
+  src: url("../fonts/dela-gothic-one-latin-ext-400-normal.woff2") format("woff2");
+  font-weight: 400; font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 900; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("../fonts/schibsted-grotesk-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 400 900; font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* Cores tiradas do próprio vídeo */
+  --asfalto: #131111;      /* fundo da página = parte de baixo do vídeo */
+  --grafite: #2f2d2b;      /* parte de cima do vídeo */
+  --concreto: #45413e;     /* superfícies */
+  --lapis: #8a827c;        /* traço de lápis (linhas apagadas) */
+  --neon: #ff7a1a;         /* laranja da logo */
+  --brasa: #e2501b;        /* laranja escuro (sombras, degradê da logo) */
+  --giz: #f5f1ec;          /* branco do texto */
+  --giz-suave: #b9b1aa;    /* texto secundário */
+
+  --brilho: 0 0 .5em rgba(255, 122, 26, .55), 0 0 1.6em rgba(255, 122, 26, .25);
+
+  --f-display: "Dela Gothic One", "Arial Black", Impact, sans-serif;
+  --f-texto: "Schibsted Grotesk", "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* inclinação da logo */
+  --inclina: -8deg;
+
+  --ease-solta: cubic-bezier(.2, .8, .2, 1);
+  --ease-mola: cubic-bezier(.34, 1.56, .64, 1);
+}

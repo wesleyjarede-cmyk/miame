@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Miami Store — streetwear</title>
+  <meta name="description" content="Miami Store: bonés, moletons, camisetas, tênis e acessórios streetwear. Veja a vitrine e fale com a loja pelo Instagram.">
+  <meta name="theme-color" content="#131111">
+  <meta property="og:title" content="Miami Store">
+  <meta property="og:description" content="Streetwear com atitude. Veja a vitrine da Miami Store.">
+  <meta property="og:image" content="img/abertura-final.webp">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/dela-gothic-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/marca.css">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<!-- Desenhos a traço (ícones das peças). Cada um é desenhado em "lápis" e acende em laranja. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-bone" viewBox="0 0 120 120">
+      <path d="M20 76 C18 46 38 30 60 30 C84 30 100 46 100 72 L100 78 L20 78 Z"/>
+      <path d="M60 31 C55 46 55 62 57 78"/>
+      <path d="M38 38 C34 52 34 64 36 78 M82 38 C86 52 86 64 84 78"/>
+      <path d="M56 28 a4 3 0 0 1 8 0"/>
+      <path d="M62 78 C80 77 104 79 112 86 C104 92 80 91 60 86"/>
+      <path d="M24 70 L40 70"/>
+    </symbol>
+    <symbol id="ic-moletom" viewBox="0 0 120 120">
+      <path d="M36 40 L22 48 L12 98 L27 100 L32 66 L32 106 L88 106 L88 66 L93 100 L108 98 L98 48 L84 40"/>
+      <path d="M36 40 C38 18 82 18 84 40 C76 52 44 52 36 40 Z"/>
+      <path d="M60 50 L60 106"/>
+      <path d="M40 84 L50 76 L70 76 L80 84 L80 98 L40 98 Z"/>
+      <path d="M52 50 L50 66 M68 50 L70 66"/>
+      <path d="M32 100 L88 100"/>
+    </symbol>
+    <symbol id="ic-camiseta" viewBox="0 0 120 120">
+      <path d="M41 24 L22 32 L8 54 L25 63 L32 52 L32 106 L88 106 L88 52 L95 63 L112 54 L98 32 L79 24 C75 36 45 36 41 24 Z"/>
+      <path d="M45 27 C51 37 69 37 75 27"/>
+      <path d="M42 54 L78 54 L78 66 L42 66 Z"/>
+      <path d="M32 98 L88 98"/>
+    </symbol>
+    <symbol id="ic-calca" viewBox="0 0 120 120">
+      <path d="M34 12 L86 12 L92 108 L68 108 L60 44 L52 108 L28 108 Z"/>
+      <path d="M34 20 L86 20"/>
+      <path d="M40 20 L40 12 M80 20 L80 12 M60 20 L60 38"/>
+      <path d="M31 58 L47 58 L46 78 L30 78 Z M73 58 L89 58 L90 78 L74 78 Z"/>
+      <path d="M31 64 L47 64 M73 64 L89 64"/>
+    </symbol>
+    <symbol id="ic-tenis" viewBox="0 0 120 120">
+      <path d="M10 84 C10 72 14 64 20 62 L40 58 C46 50 52 42 58 40 L68 48 C76 56 90 62 102 66 C110 68 114 74 114 82 L114 88 L10 88 Z"/>
+      <path d="M10 88 L114 88 L114 94 C80 99 40 99 10 94 Z"/>
+      <path d="M50 50 l9 6 M45 56 l9 6 M56 45 l9 6"/>
+      <path d="M38 78 C58 70 78 70 96 77"/>
+      <path d="M20 62 C22 70 22 78 18 84"/>
+    </symbol>
+    <symbol id="ic-corrente" viewBox="0 0 120 120">
+      <path d="M26 18 C24 60 38 92 60 98 C82 92 96 60 94 18"/>
+      <ellipse cx="27" cy="30" rx="5" ry="8"/><ellipse cx="29" cy="48" rx="5" ry="8"/>
+      <ellipse cx="35" cy="65" rx="6" ry="8" transform="rotate(-20 35 65)"/>
+      <ellipse cx="45" cy="81" rx="7" ry="7"/>
+      <ellipse cx="93" cy="30" rx="5" ry="8"/><ellipse cx="91" cy="48" rx="5" ry="8"/>
+      <ellipse cx="85" cy="65" rx="6" ry="8" transform="rotate(20 85 65)"/>
+      <ellipse cx="75" cy="81" rx="7" ry="7"/>
+      <path d="M52 96 L60 112 L68 96"/>
+    </symbol>
+    <symbol id="ic-instagram" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="ic-direct" viewBox="0 0 24 24">
+      <path d="M21 3 L3 10.5 L10 13 L13 20.5 Z"/><path d="M21 3 L10 13"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+
+<header class="topo" data-topo>
+  <a class="topo__marca" href="#inicio" aria-label="Miami Store, voltar ao início">
+    <span class="marca-texto"><span>Miami</span> <span class="marca-texto__laranja">Store</span></span>
+  </a>
+  <nav class="topo__nav" id="menu" aria-label="Menu principal">
+    <a href="#colecoes">Coleções</a>
+    <a href="#vitrine">Vitrine</a>
+    <a href="#contato">Contato</a>
+    <a class="topo__ig" data-ig-link target="_blank" rel="noopener" aria-label="Abrir Instagram da Miami Store">
+      <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg><span data-ig-arroba></span>
+    </a>
+  </nav>
+  <button class="topo__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+    <span class="topo__menu-linhas" aria-hidden="true"></span><span class="sr">Abrir menu</span>
+  </button>
+</header>
+
+<main>
+  <!-- A. ABERTURA — o vídeo é o protagonista -->
+  <section class="palco" id="inicio" aria-label="Abertura Miami Store" data-palco>
+    <canvas class="palco__luz" width="18" height="32" aria-hidden="true" data-luz></canvas>
+
+    <!-- A fachada continua para os lados, em traço de lápis, e acende junto com o vídeo -->
+    <svg class="palco__rua palco__rua--esq" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      <g class="traco">
+        <path d="M1000 128 L620 128 L620 160 L0 160"/>
+        <path d="M1000 232 L0 232"/>
+        <path d="M1000 300 L0 300"/>
+        <path d="M1000 515 L0 515"/>
+        <path d="M1000 545 L0 545"/>
+        <path d="M900 300 L900 515 M700 300 L700 515 M500 300 L500 515 M300 300 L300 515 M100 300 L100 515"/>
+        <path d="M860 340 L740 340 L740 480 L860 480 Z M460 340 L340 340 L340 480 L460 480 Z"/>
+        <path d="M640 128 L640 100 L700 100 L700 128 M240 160 L240 120 L290 120 L290 160"/>
+        <path d="M1000 760 L0 900"/>
+      </g>
+    </svg>
+    <svg class="palco__rua palco__rua--dir" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      <g class="traco">
+        <path d="M0 128 L380 128 L380 160 L1000 160"/>
+        <path d="M0 232 L1000 232"/>
+        <path d="M0 300 L1000 300"/>
+        <path d="M0 515 L1000 515"/>
+        <path d="M0 545 L1000 545"/>
+        <path d="M100 300 L100 515 M300 300 L300 515 M500 300 L500 515 M700 300 L700 515 M900 300 L900 515"/>
+        <path d="M140 340 L260 340 L260 480 L140 480 Z M540 340 L660 340 L660 480 L540 480 Z"/>
+        <path d="M300 128 L300 100 L360 100 L360 128 M710 160 L710 120 L760 120 L760 160"/>
+        <path d="M0 760 L1000 900"/>
+      </g>
+    </svg>
+
+    <div class="palco__tela" data-tela>
+      <video class="palco__video" data-video
+        muted playsinline preload="auto"
+        poster="img/abertura-inicio.webp"
+        width="1080" height="1920"
+        aria-label="Animação de abertura: dois personagens da Miami Store chegam na frente da loja, a fachada acende em laranja e aparece a logo.">
+        <source src="videos/abertura-1080.mp4" type="video/mp4" media="(min-width: 700px)">
+        <source src="videos/abertura-720.mp4" type="video/mp4">
+      </video>
+      <img class="palco__final" src="img/abertura-final.webp" width="1080" height="1920" alt="" aria-hidden="true" data-final>
+
+      <div class="palco__acoes">
+        <a class="botao botao--neon" href="#colecoes" data-entrar>Ver a coleção</a>
+        <div class="palco__mini">
+          <button class="botao-mini" type="button" data-som aria-pressed="false">
+            <span data-som-texto>Ligar som</span>
+          </button>
+          <button class="botao-mini" type="button" data-rever>Ver de novo</button>
+        </div>
+      </div>
+    </div>
+
+    <a class="palco__pular" href="#conteudo" data-pular>Pular abertura</a>
+  </section>
+
+  <div id="conteudo"></div>
+
+  <!-- B. MARCA -->
+  <section class="marca" id="marca" aria-labelledby="marca-titulo">
+    <div class="marca__faixa" aria-hidden="true" data-faixa>
+      <span>Miami Store</span><span>Miami Store</span><span>Miami Store</span><span>Miami Store</span>
+    </div>
+    <div class="marca__miolo">
+      <div class="marca__texto">
+        <h2 id="marca-titulo" class="titulo">Streetwear com atitude, do boné ao tênis.</h2>
+        <p>Peças pra montar o visual completo. As novidades chegam primeiro no Instagram da loja.</p>
+        <a class="botao botao--contorno" data-ig-link target="_blank" rel="noopener">
+          <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg>
+          <span>Seguir <span data-ig-arroba></span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- C. COLEÇÕES -->
+  <section class="colecoes" id="colecoes" aria-labelledby="colecoes-titulo">
+    <div class="secao-topo">
+      <h2 id="colecoes-titulo" class="titulo">Coleções</h2>
+      <p>Toque numa coleção para ver as peças na vitrine.</p>
+    </div>
+    <div class="colecoes__mosaico" data-colecoes></div>
+    <div class="etiqueta-cursor" aria-hidden="true" data-etiqueta><span>Ver na vitrine</span></div>
+  </section>
+
+  <!-- D + E. VITRINE 3D GIRATÓRIA -->
+  <section class="vitrine" id="vitrine" aria-labelledby="vitrine-titulo">
+    <div class="secao-topo">
+      <h2 id="vitrine-titulo" class="titulo">Gira a vitrine</h2>
+      <p>Arraste para os lados ou use as setas. A peça da frente acende.</p>
+    </div>
+
+    <div class="vitrine__cena" data-cena tabindex="0" role="region" aria-roledescription="vitrine giratória" aria-label="Vitrine de peças em destaque. Use as setas esquerda e direita para girar.">
+      <div class="vitrine__anel" data-anel></div>
+      <div class="vitrine__chao" aria-hidden="true"></div>
+    </div>
+
+    <div class="vitrine__painel">
+      <button class="seta" type="button" data-anterior aria-label="Peça anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>
+      </button>
+      <div class="vitrine__info" aria-live="polite" data-info>
+        <p class="vitrine__categoria" data-info-categoria></p>
+        <p class="vitrine__nome" data-info-nome></p>
+        <p class="vitrine__preco" data-info-preco hidden></p>
+      </div>
+      <button class="seta" type="button" data-proxima aria-label="Próxima peça">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 L16 12 L9 19"/></svg>
+      </button>
+    </div>
+    <div class="vitrine__cta">
+      <a class="botao botao--neon" data-direct target="_blank" rel="noopener">
+        <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg>
+        <span>Perguntar no direct</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- F. INSTAGRAM E CONTATO -->
+  <section class="contato" id="contato" aria-labelledby="contato-titulo">
+    <h2 id="contato-titulo" class="sr">Contato</h2>
+    <p class="contato__chamada">Gostou de alguma peça? Chama a gente no direct.</p>
+    <a class="contato__arroba" data-ig-link target="_blank" rel="noopener" aria-label="Abrir Instagram da Miami Store">
+      <span data-ig-arroba></span>
+    </a>
+    <div class="contato__botoes">
+      <a class="botao botao--neon" data-direct target="_blank" rel="noopener">
+        <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg><span>Mandar mensagem</span>
+      </a>
+      <a class="botao botao--contorno" data-ig-link target="_blank" rel="noopener">
+        <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg><span>Ver o Instagram</span>
+      </a>
+      <a class="botao botao--contorno" data-whats target="_blank" rel="noopener" hidden>Chamar no WhatsApp</a>
+    </div>
+    <dl class="contato__dados" data-dados hidden></dl>
+  </section>
+</main>
+
+<footer class="rodape">
+  <svg class="rodape__fachada" viewBox="0 0 600 140" aria-hidden="true">
+    <g class="traco">
+      <path d="M20 130 L580 130"/>
+      <path d="M60 130 L60 40 L540 40 L540 130"/>
+      <path d="M40 40 L560 40 L560 28 L40 28 Z"/>
+      <path d="M110 28 L110 12 L150 12 L150 28 M430 28 L430 16 L470 16 L470 28"/>
+      <path d="M90 60 L230 60 L230 130 M90 60 L90 130 M370 60 L510 60 L510 130 M370 60 L370 130"/>
+      <path d="M235 52 L365 52 L365 84 L235 84 Z"/>
+      <path d="M270 130 L270 96 L330 96 L330 130"/>
+      <path d="M110 78 L110 120 M140 78 L140 120 M170 78 L170 120 M200 78 L200 120"/>
+      <path d="M390 78 L390 120 M420 78 L420 120 M450 78 L450 120 M480 78 L480 120"/>
+    </g>
+    <text x="300" y="74" text-anchor="middle" class="rodape__placa">MIAMI STORE</text>
+  </svg>
+  <div class="rodape__linha">
+    <span class="marca-texto"><span>Miami</span> <span class="marca-texto__laranja">Store</span></span>
+    <a data-ig-link target="_blank" rel="noopener"><span data-ig-arroba></span></a>
+    <span>© <span data-ano></span> Miami Store</span>
+  </div>
+</footer>
+
+<a class="flutuante" data-direct target="_blank" rel="noopener" aria-label="Mandar mensagem no Instagram da Miami Store" data-flutuante>
+  <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg>
+</a>
+
+<script src="js/dados.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
