@@ -1,10 +1,10 @@
 node_modules/
 .env
 *.log
-# Vídeos ficam fora do Git (pesados)
-videos/
+# Originais pesados ficam fora do Git
 originais/
-*.mp4
 *.mov
+# Os vídeos usados no site (videos/abertura-1080.mp4 e abertura-720.mp4) entram no Git,
+# porque o site publicado (GitHub Pages) precisa deles.
 # Capturas de teste
 capturas/
