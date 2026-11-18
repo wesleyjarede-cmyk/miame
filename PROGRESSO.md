@@ -10,7 +10,8 @@ Pasta do projeto: `C:\Users\e4u\Downloads\miami-store`
 
 ## 2. O que já foi feito
 - **Abertura**: no computador, o topo, o vídeo e o botão "Ver a coleção" cabem inteiros na tela, sem rolar. Testado em 1920×1080, 1366×768 e 1280×720. O vídeo mostra a faixa útil da animação (da fachada até a logo); só o fundo liso de cima e de baixo fica de fora. No celular, o vídeo ocupa a largura toda e o botão vem logo abaixo, tudo na primeira tela (testado em 390×844 e 360×640).
-- **Som**: o vídeo tenta tocar com som. Se o navegador bloquear, o que é comum na primeira visita, ele toca mudo, aparece a dica discreta "Toque para ouvir" e o primeiro toque na página liga o som sem reiniciar o vídeo. Os botões "Ligar/Desligar som" e "Ver de novo" foram removidos.
+- **Som** (3ª rodada): o vídeo tenta tocar com som. Se o navegador bloquear, o que é comum no iPhone e no Chrome na primeira visita, ele toca mudo, **sem nenhum aviso na tela**. Se a pessoa tocar na página enquanto o vídeo ainda roda, o som liga sem pausar o vídeo. Não há botões de som nem de repetir.
+- **Abertura no celular** (3ª rodada): recorte mais justo (do topo da fachada até logo abaixo da logo), botão colado na composição e o título "Streetwear" a 36 px do botão, já visível na primeira tela do iPhone 13 (Safari).
 - **Marca**: o texto ficou mais compacto e duas fotos reais de dentro da loja apareceram ao lado, com a etiqueta "Dentro da loja".
 - **Coleções**: seis cards com fotos reais (Kits completos, Camisetas, Moletons, Calças, Bermudas e Tênis). No computador, o mosaico tem 4 colunas, com Kits em destaque alto. No celular são 2 colunas, todos os cards iguais (4:5) e sem espaço vazio.
 - **Vitrine 3D**: oito peças reais tiradas dos posts.

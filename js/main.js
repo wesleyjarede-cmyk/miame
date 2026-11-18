@@ -88,7 +88,6 @@
   var imgFinal = $("[data-final]");
   var luz = $("[data-luz]");
   var ctxLuz = luz.getContext("2d");
-  var dicaSom = $("[data-dica-som]");
   var MOMENTO_LUZ = 3.1; // segundo em que a fachada do vídeo começa a acender
 
   function pintarLuz(fonte) {
@@ -106,27 +105,32 @@
   }
   function mostrarFinal() {
     palco.classList.add("is-final", "is-luz", "is-aceso");
-    esconderDica();
     if (imgFinal.complete) pintarLuz(imgFinal); else imgFinal.addEventListener("load", function () { pintarLuz(imgFinal); }, { once: true });
   }
 
-  /* Som: a preferência é tocar COM som. Os navegadores só deixam isso quando
-     o visitante já interagiu com o site; se bloquearem, o vídeo segue mudo
-     e o primeiro toque/clique/tecla em qualquer lugar da página liga o som
-     (sem reiniciar o vídeo). */
+  /* Som: a preferência é tocar COM som. Os navegadores (Chrome, Safari do
+     iPhone) só permitem isso quando o visitante já interagiu com o site.
+     Se bloquearem, o vídeo segue tocando mudo, SEM nenhum aviso na tela.
+     Se a pessoa tocar/clicar/teclar na página enquanto o vídeo ainda toca,
+     esse gesto natural liga o som (sem pausar nem reiniciar o vídeo). */
+  var EVENTOS_GESTO = ["pointerdown", "keydown", "touchend"];
   var esperandoToque = false;
-  function esconderDica() { dicaSom.hidden = true; }
+  function pararDeEsperar() {
+    esperandoToque = false;
+    EVENTOS_GESTO.forEach(function (t) { document.removeEventListener(t, ligarSomAoInteragir, true); });
+  }
   function ligarSomAoInteragir() {
     if (!esperandoToque) return;
-    esperandoToque = false;
-    ["pointerdown", "keydown", "touchend"].forEach(function (t) { document.removeEventListener(t, ligarSomAoInteragir, true); });
-    if (!video.ended && !video.paused) { video.muted = false; video.volume = 1; }
-    esconderDica();
+    pararDeEsperar();
+    if (!video.ended && !video.paused) {
+      video.muted = false;
+      // se o navegador ainda assim pausar ao tirar o mudo, volta a tocar mudo
+      if (video.paused) { video.muted = true; video.play().catch(function () {}); }
+    }
   }
   function aguardarToque() {
     esperandoToque = true;
-    dicaSom.hidden = false;
-    ["pointerdown", "keydown", "touchend"].forEach(function (t) { document.addEventListener(t, ligarSomAoInteragir, true); });
+    EVENTOS_GESTO.forEach(function (t) { document.addEventListener(t, ligarSomAoInteragir, true); });
   }
   function tocarComSom() {
     video.muted = false;
@@ -144,7 +148,7 @@
   video.addEventListener("ended", function () {
     palco.classList.add("is-luz", "is-aceso");
     pintarLuz(video);
-    esconderDica();
+    pararDeEsperar();
   });
   video.addEventListener("error", mostrarFinal, true);
 

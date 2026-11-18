@@ -10,4 +10,6 @@ HTML, CSS e JS puros: abra o `index.html` no Chrome, sem instalar nada.
 - `videos/`: vídeo de abertura em 1080 e 720 (fora do Git).
 - `originais/`: vídeo original enviado (fora do Git).
 
+**Ver no celular** (mesmo Wi-Fi): rode `node servidor-local.mjs` e abra no celular o endereço que aparecer (ex.: `http://192.168.0.17:8080`).
+
 Situação e pendências: veja `PROGRESSO.md`.
