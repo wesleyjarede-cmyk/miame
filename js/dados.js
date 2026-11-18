@@ -27,7 +27,50 @@ window.CATEGORIAS = [
   { id: "tenis",     nome: "Tênis",          icone: "tenis",    foto: "img/colecoes/tenis.webp" },
 ];
 
-/* Vitrine 3D — peças reais dos posts da loja.
+/* CATÁLOGO — o que aparece quando o visitante abre cada coleção.
+   A chave é o "id" da categoria acima. Cada foto é um post real da loja.
+   nome: descrição do que aparece na foto (não é nome comercial oficial).
+   preco: só se a loja confirmar (null = não mostra).
+   Fotos com pessoas (dentro da loja) ficaram fora do catálogo de propósito. */
+window.CATALOGO = {
+  kits: [
+    { nome: "Polo Tommy verde e bermuda de linho",        foto: "img/catalogo/kits/polo-tommy-bermuda-linho.webp", preco: null },
+    { nome: "Camiseta e bermuda Lacoste",                 foto: "img/catalogo/kits/camiseta-bermuda-lacoste.webp", preco: null },
+    { nome: "Moletom Hilfiger, calça jeans e tênis",      foto: "img/catalogo/kits/moletom-hilfiger-jeans-tenis.webp", preco: null },
+    { nome: "Camiseta preta, calça jeans e tênis",        foto: "img/catalogo/kits/camiseta-preta-jeans-tenis.webp", preco: null },
+    { nome: "Camiseta listrada, calça jeans e tênis",     foto: "img/catalogo/kits/camiseta-listrada-jeans-tenis.webp", preco: null },
+    { nome: "Camiseta Hilfiger azul, calça jeans e tênis", foto: "img/catalogo/kits/camiseta-hilfiger-azul-jeans-tenis.webp", preco: null },
+    { nome: "Camiseta, bermuda Adidas e tênis",           foto: "img/catalogo/kits/camiseta-bermuda-adidas-tenis.webp", preco: null },
+    { nome: "Camiseta Tommy, calça jeans e tênis",        foto: "img/catalogo/kits/camiseta-tommy-jeans-tenis.webp", preco: null },
+    { nome: "Camiseta preta e bermuda jeans",             foto: "img/catalogo/kits/camiseta-bermuda-jeans.webp", preco: null },
+    { nome: "Camiseta branca e bermuda azul",             foto: "img/catalogo/kits/camiseta-bermuda-azul.webp", preco: null },
+  ],
+  camisetas: [
+    { nome: "Camisetas Balmain preta e branca",  foto: "img/catalogo/camisetas/camisetas-balmain.webp", preco: null },
+    { nome: "Polos Zara preta e branca",         foto: "img/catalogo/camisetas/polos-zara.webp", preco: null },
+    { nome: "Camisetas listradas Zara",          foto: "img/catalogo/camisetas/camisetas-listradas-zara.webp", preco: null },
+  ],
+  moletons: [
+    { nome: "Moletons Tommy Hilfiger com zíper", foto: "img/catalogo/moletons/moletons-tommy-ziper.webp", preco: null },
+    { nome: "Moletom Nike branco",               foto: "img/catalogo/moletons/moletom-nike-branco.webp", preco: null },
+    { nome: "Moletom Nike cinza",                foto: "img/catalogo/moletons/moletom-nike-cinza.webp", preco: null },
+  ],
+  calcas: [
+    { nome: "Calças jeans clara e escura", foto: "img/catalogo/calcas/calcas-jeans-clara-escura.webp", preco: null },
+    { nome: "Calça jeans preta",           foto: "img/catalogo/calcas/calca-jeans-preta.webp", preco: null },
+  ],
+  bermudas: [
+    { nome: "Bermudas com faixa lateral", foto: "img/catalogo/bermudas/bermudas-faixa-lateral.webp", preco: null },
+    { nome: "Bermudas Jordan",            foto: "img/catalogo/bermudas/bermudas-jordan.webp", preco: null },
+  ],
+  tenis: [
+    { nome: "Tênis Tommy Hilfiger branco",  foto: "img/catalogo/tenis/tenis-tommy-branco.webp", preco: null },
+    { nome: "Tênis Adidas preto",           foto: "img/catalogo/tenis/tenis-adidas-preto.webp", preco: null },
+    { nome: "Tênis Nike preto e vermelho",  foto: "img/catalogo/tenis/tenis-nike-preto-vermelho.webp", preco: null },
+  ],
+};
+
+/* Vitrine 3D — peças reais dos posts da loja (destaques, independente do catálogo).
    nome: descrição do que aparece na foto (não é nome comercial oficial).
    preco: só coloque se a loja confirmar. null = não mostra preço. */
 window.PRODUTOS = [

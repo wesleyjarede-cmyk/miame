@@ -14,7 +14,8 @@ Pasta do projeto: `C:\Users\e4u\Downloads\miami-store`
 - **Abertura no celular** (3ª rodada): recorte mais justo (do topo da fachada até logo abaixo da logo), botão colado na composição e o título "Streetwear" a 36 px do botão, já visível na primeira tela do iPhone 13 (Safari).
 - **Marca**: o texto ficou mais compacto e duas fotos reais de dentro da loja apareceram ao lado, com a etiqueta "Dentro da loja".
 - **Coleções**: seis cards com fotos reais (Kits completos, Camisetas, Moletons, Calças, Bermudas e Tênis). No computador, o mosaico tem 4 colunas, com Kits em destaque alto. No celular são 2 colunas, todos os cards iguais (4:5) e sem espaço vazio.
-- **Vitrine 3D**: oito peças reais tiradas dos posts.
+- **Catálogo por coleção** (4ª rodada): cada card de categoria abre a própria coleção numa tela que surge do ponto do clique. Ela tem nome da categoria, fotos reais, nome descritivo da peça, botão "Consultar no direct", abas para trocar de coleção e botão de voltar. Cada coleção tem link próprio (ex.: `#colecao/moletons`), o Voltar do navegador fecha a coleção e a página volta ao mesmo ponto. Os dados ficam em `js/dados.js` → `CATALOGO`. Fotos: Kits 10, Camisetas 3, Moletons 3, Calças 2, Bermudas 2, Tênis 3 (pasta `img/catalogo/<categoria>/`).
+- **Vitrine 3D**: oito peças reais tiradas dos posts. Continua independente do catálogo (destaques).
 - **Instagram**: perfil com avatar, título, botões "Seguir no Instagram" e "Mandar direct", grade com 6 posts reais e dados da loja (endereço com link para o mapa, horário e atendimento).
 - **Rodapé**: a logo original (personagens, fachada e "MIAMI STORE") aparece num quadro, com links, endereço e horário.
 

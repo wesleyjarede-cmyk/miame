@@ -542,6 +542,125 @@ button { font: inherit; color: inherit; }
 .rodape__endereco a:hover { color: var(--neon); }
 .rodape__copy { color: var(--giz-suave); font-size: .82rem; opacity: .8; }
 
+/* =========================================================
+   COLEÇÃO ABERTA (catálogo por categoria)
+   Abre por cima da página num círculo que nasce do card clicado.
+   ========================================================= */
+html.colecao-aberta, html.colecao-aberta body { overflow: hidden; }
+html.colecao-aberta .flutuante { transform: translateY(120px); }
+.colecao {
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; flex-direction: column;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,122,26,.12), transparent 70%),
+    var(--asfalto);
+  clip-path: circle(0 at var(--ox, 50%) var(--oy, 50%));
+  transition: clip-path .45s var(--ease-solta);
+}
+.colecao.is-aberto { clip-path: circle(150vmax at var(--ox, 50%) var(--oy, 50%)); }
+.colecao__barra {
+  flex: none;
+  display: flex; align-items: center; gap: 12px;
+  height: var(--topo); padding: 0 clamp(12px, 4vw, 48px);
+  border-bottom: 1px solid rgba(245,241,236,.08);
+  background: rgba(19,17,17,.9);
+}
+.colecao__voltar {
+  flex: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 0 14px 0 8px; border-radius: 999px;
+  background: rgba(245,241,236,.05); border: 1px solid rgba(245,241,236,.18);
+  font-weight: 700; font-size: .92rem; cursor: pointer;
+  transition: border-color .25s, color .25s;
+}
+.colecao__voltar svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.colecao__voltar:hover { border-color: var(--neon); color: var(--neon); }
+.colecao__abas {
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, #000 88%, transparent);
+  padding-right: 24px;
+}
+.colecao__abas::-webkit-scrollbar { display: none; }
+.colecao__aba {
+  flex: none; white-space: nowrap; text-decoration: none;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border-radius: 999px; font-weight: 600; font-size: .9rem; color: var(--giz-suave);
+  transition: color .25s, background-color .25s;
+}
+.colecao__aba:hover { color: var(--giz); }
+.colecao__aba.is-ativa { background: var(--neon); color: #1a0d04; font-weight: 800; }
+
+.colecao__rolagem {
+  flex: 1; overflow-y: auto; overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 5vw, 72px) calc(40px + env(safe-area-inset-bottom));
+}
+.colecao__topo {
+  max-width: 1280px; margin: 0 auto clamp(18px, 3vw, 32px);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px;
+}
+.colecao__titulo { font-size: clamp(2.2rem, 1.4rem + 4vw, 4.5rem); outline: none; }
+.colecao__conta { color: var(--neon); font-weight: 700; }
+
+.colecao__grade {
+  list-style: none; margin: 0 auto; padding: 0; max-width: 1280px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: clamp(12px, 1.6vw, 22px);
+}
+.produto {
+  display: flex; flex-direction: column;
+  border-radius: 6px 22px 6px 22px; overflow: hidden;
+  background: linear-gradient(165deg, #2a2725, #1b1918);
+  border: 1px solid rgba(245,241,236,.08);
+  transition: border-color .35s, box-shadow .35s, transform .35s var(--ease-solta);
+}
+.colecao.is-trocando .produto { animation: produto-entra .45s var(--ease-solta) both; animation-delay: calc(var(--i, 0) * 45ms + 80ms); }
+@keyframes produto-entra { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+.produto:hover { border-color: rgba(255,122,26,.7); box-shadow: 0 0 30px -8px rgba(255,122,26,.6); transform: translateY(-3px); }
+.produto__foto { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: #1d1b1a; }
+.produto__foto img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(.85) brightness(.9);
+  transition: transform .6s var(--ease-solta), filter .4s;
+}
+.produto:hover .produto__foto img { transform: scale(1.04); filter: none; }
+.produto__info { display: grid; gap: 8px; padding: 12px 14px 14px; flex: 1; align-content: space-between; }
+.produto__nome { font-weight: 700; font-size: .98rem; line-height: 1.3; }
+.produto__preco { color: var(--neon); font-weight: 800; }
+.produto__direct {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; border-radius: 999px;
+  border: 1.5px solid rgba(255,122,26,.6); color: var(--neon);
+  font-weight: 700; font-size: .9rem; text-decoration: none;
+  transition: background-color .25s, color .25s;
+}
+.produto__direct:hover { background: var(--neon); color: #1a0d04; }
+.produto--mais { background: transparent; border: 1.5px dashed rgba(255,122,26,.45); }
+.produto--mais a {
+  flex: 1; display: grid; place-content: center; justify-items: center; gap: 8px;
+  padding: 28px 16px; text-align: center; text-decoration: none; min-height: 220px;
+}
+.produto--mais .ic { width: 34px; height: 34px; color: var(--neon); }
+.produto--mais strong { font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; line-height: 1.15; transform: skewX(var(--inclina)); }
+.produto--mais span { color: var(--giz-suave); font-size: .9rem; }
+.colecao__rodape { max-width: 1280px; margin: 28px auto 0; color: var(--giz-suave); font-size: .92rem; text-align: center; }
+
+@media (max-width: 760px) {
+  .colecao__voltar span { display: none; }
+  .colecao__voltar { padding: 0 12px; width: 44px; justify-content: center; }
+  .colecao__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .produto__info { padding: 10px 10px 12px; }
+  .produto__nome { font-size: .88rem; }
+  .produto__direct { font-size: .8rem; gap: 6px; }
+  .produto__direct .ic { width: 1.05em; height: 1.05em; }
+  .produto--mais a { min-height: 0; padding: 18px 10px; }
+}
+@media (max-width: 400px) {
+  .produto__direct-extra { display: none; }
+  .produto--mais strong { font-size: 1rem; }
+}
+
 /* ---------- Botão flutuante ---------- */
 .flutuante {
   position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 45;

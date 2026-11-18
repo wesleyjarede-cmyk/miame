@@ -175,10 +175,10 @@
   <section class="colecoes" id="colecoes" aria-labelledby="colecoes-titulo">
     <div class="secao-topo">
       <h2 id="colecoes-titulo" class="titulo">Coleções</h2>
-      <p>Toque numa coleção para ver as peças na vitrine.</p>
+      <p>Toque numa coleção para ver todas as peças.</p>
     </div>
     <div class="colecoes__mosaico" data-colecoes></div>
-    <div class="etiqueta-cursor" aria-hidden="true" data-etiqueta><span>Ver na vitrine</span></div>
+    <div class="etiqueta-cursor" aria-hidden="true" data-etiqueta><span>Ver coleção</span></div>
   </section>
 
   <!-- D + E. VITRINE 3D GIRATÓRIA -->
@@ -264,6 +264,27 @@
   <p class="rodape__endereco" data-rodape-endereco hidden></p>
   <p class="rodape__copy">© <span data-ano></span> Miami Store</p>
 </footer>
+
+<!-- COLEÇÃO ABERTA (catálogo por categoria) — abre por cima da página, com link próprio: #colecao/<id> -->
+<div class="colecao" data-colecao role="dialog" aria-modal="true" aria-labelledby="colecao-titulo" hidden>
+  <div class="colecao__barra">
+    <button class="colecao__voltar" type="button" data-colecao-voltar aria-label="Voltar para as coleções">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>
+      <span>Coleções</span>
+    </button>
+    <nav class="colecao__abas" aria-label="Trocar de coleção" data-colecao-abas></nav>
+  </div>
+  <div class="colecao__rolagem" data-colecao-rolagem>
+    <header class="colecao__topo">
+      <h2 id="colecao-titulo" class="titulo colecao__titulo" tabindex="-1" data-colecao-titulo></h2>
+      <p class="colecao__conta" data-colecao-conta></p>
+    </header>
+    <ul class="colecao__grade" data-colecao-grade></ul>
+    <p class="colecao__rodape">
+      Quer saber tamanho, cor ou preço? Chama no direct que a loja responde.
+    </p>
+  </div>
+</div>
 
 <a class="flutuante" data-direct target="_blank" rel="noopener" aria-label="Mandar mensagem no Instagram da Miami Store" data-flutuante>
   <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg>

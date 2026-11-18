@@ -199,7 +199,8 @@
     var visual = c.foto
       ? '<img class="peca__foto" src="' + escapar(c.foto) + '" alt="" loading="lazy" decoding="async">'
       : '<span class="peca__desenho">' + desenho(c.icone) + "</span>";
-    return '<a class="peca revela" href="#vitrine" data-cat="' + escapar(c.nome) + '" aria-label="' + escapar(c.nome) + ': ver na vitrine">' +
+    var qtd = ((window.CATALOGO || {})[c.id] || []).length;
+    return '<a class="peca revela" href="#colecao/' + escapar(c.id) + '" data-cat-id="' + escapar(c.id) + '" aria-label="Abrir a coleção ' + escapar(c.nome) + " (" + qtd + (qtd === 1 ? " foto" : " fotos") + ')">' +
       visual + '<span class="peca__nome">' + escapar(c.nome) + "</span></a>";
   }).join("");
   // corrige o tamanho do desenho (o span precisa do svg dentro ocupando a área)
@@ -226,13 +227,146 @@
         etiqueta.classList.remove("is-ativa");
       });
     }
-    peca.addEventListener("click", function () {
-      var cat = peca.getAttribute("data-cat");
-      for (var k = 0; k < PRODUTOS.length; k++) {
-        if (PRODUTOS[k].categoria === cat) { irPara(k, true); break; }
-      }
+    // o link "#colecao/<id>" abre a coleção (ver bloco "CATÁLOGO" abaixo)
+    peca.addEventListener("click", function (e) {
+      origemCatalogo = peca;
+      pontoClique = { x: e.clientX, y: e.clientY };
+      etiqueta.classList.remove("is-ativa");
     });
   });
+
+  /* =========================================================
+     CATÁLOGO — cada categoria abre a própria coleção.
+     Funciona por link (#colecao/moletons), com o botão Voltar do navegador,
+     e sem perder o ponto da página onde o visitante estava.
+     ========================================================= */
+  var CATALOGO = window.CATALOGO || {};
+  var painel = $("[data-colecao]");
+  var painelRolagem = $("[data-colecao-rolagem]");
+  var painelTitulo = $("[data-colecao-titulo]");
+  var painelConta = $("[data-colecao-conta]");
+  var painelGrade = $("[data-colecao-grade]");
+  var painelAbas = $("[data-colecao-abas]");
+  var origemCatalogo = null, pontoClique = null, abertaPeloSite = false, colecaoAtual = null, timerFechar = null;
+  var linkDirect = ig ? "https://ig.me/m/" + ig : null;
+  var linkPerfil = ig ? "https://www.instagram.com/" + ig + "/" : null;
+
+  painelAbas.innerHTML = CATEGORIAS.map(function (c) {
+    return '<a class="colecao__aba" href="#colecao/' + escapar(c.id) + '" data-aba="' + escapar(c.id) + '">' + escapar(c.nome) + "</a>";
+  }).join("");
+  $$(".colecao__aba", painelAbas).forEach(function (a) {
+    // trocar de aba não empilha histórico: o Voltar continua levando às categorias
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      history.replaceState(history.state, "", a.getAttribute("href"));
+      mostrarColecao(a.getAttribute("data-aba"));
+    });
+  });
+
+  function cardProduto(p, i) {
+    return '<li class="produto" style="--i:' + i + '">' +
+      '<figure class="produto__foto"><img src="' + escapar(p.foto) + '" width="800" height="1000" alt="' + escapar(p.nome) + '" loading="' + (i < 4 ? "eager" : "lazy") + '" decoding="async"></figure>' +
+      '<div class="produto__info">' +
+        '<p class="produto__nome">' + escapar(p.nome) + "</p>" +
+        (p.preco ? '<p class="produto__preco">' + escapar(p.preco) + "</p>" : "") +
+        (linkDirect ? '<a class="produto__direct" href="' + linkDirect + '" target="_blank" rel="noopener" aria-label="Consultar ' + escapar(p.nome) + ' no direct do Instagram"><svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg>Consultar<span class="produto__direct-extra">&nbsp;no direct</span></a>' : "") +
+      "</div></li>";
+  }
+
+  function mostrarColecao(id) {
+    var cat = null;
+    CATEGORIAS.forEach(function (c) { if (c.id === id) cat = c; });
+    if (!cat) return false;
+    var itens = CATALOGO[id] || [];
+    colecaoAtual = id;
+    painelTitulo.textContent = cat.nome;
+    painelConta.textContent = itens.length ? itens.length + (itens.length === 1 ? " foto" : " fotos") + " da loja" : "Novidades em breve no Instagram";
+    var html = itens.map(cardProduto).join("");
+    // fecha a grade com um card que leva ao Instagram (não é produto)
+    if (linkPerfil) {
+      html += '<li class="produto produto--mais" style="--i:' + itens.length + '"><a href="' + linkPerfil + '" target="_blank" rel="noopener">' +
+        '<svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg>' +
+        "<strong>Mais " + escapar(cat.nome.toLowerCase()) + " no Instagram</strong><span>Os posts novos saem primeiro lá</span></a></li>";
+    }
+    painelGrade.innerHTML = html;
+    $$(".colecao__aba", painelAbas).forEach(function (a) {
+      var ativa = a.getAttribute("data-aba") === id;
+      a.classList.toggle("is-ativa", ativa);
+      if (ativa) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+      if (ativa && a.scrollIntoView) a.scrollIntoView({ block: "nearest", inline: "center" });
+    });
+    painelRolagem.scrollTop = 0;
+    painel.classList.remove("is-trocando"); void painel.offsetWidth; painel.classList.add("is-trocando");
+    return true;
+  }
+
+  function abrirColecao(id) {
+    if (!mostrarColecao(id)) return;
+    clearTimeout(timerFechar);
+    if (painel.hidden) {
+      var x = pontoClique ? pontoClique.x : innerWidth / 2, y = pontoClique ? pontoClique.y : innerHeight / 2;
+      painel.style.setProperty("--ox", x + "px");
+      painel.style.setProperty("--oy", y + "px");
+      painel.hidden = false;
+      void painel.offsetWidth;
+      painel.classList.add("is-aberto");
+      document.documentElement.classList.add("colecao-aberta");
+      definirFundoInerte(true);
+      fecharMenu();
+      painelTitulo.focus({ preventScroll: true });
+    }
+    pontoClique = null;
+  }
+
+  function fecharColecao() {
+    if (painel.hidden) return;
+    painel.classList.remove("is-aberto");
+    document.documentElement.classList.remove("colecao-aberta");
+    definirFundoInerte(false);
+    colecaoAtual = null;
+    timerFechar = setTimeout(function () { painel.hidden = true; painelGrade.innerHTML = ""; }, menosMovimento ? 0 : 320);
+    // devolve o foco ao card de onde a pessoa veio
+    var card = origemCatalogo || mosaico.querySelector('[data-cat-id]');
+    if (card) card.focus({ preventScroll: true });
+  }
+
+  // enquanto a coleção está aberta, o resto da página fica "desligado" para teclado e leitores de tela
+  function definirFundoInerte(sim) {
+    ["main", ".topo", ".rodape", ".flutuante"].forEach(function (s) {
+      var el = $(s); if (!el) return;
+      if (sim) el.setAttribute("inert", ""); else el.removeAttribute("inert");
+    });
+  }
+
+  function lerRota() {
+    var m = location.hash.match(/^#colecao\/([\w-]+)$/);
+    if (m) abrirColecao(m[1]); else fecharColecao();
+  }
+
+  // cliques nos cards de categoria: empilham histórico (para o Voltar funcionar)
+  mosaico.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("[data-cat-id]");
+    if (!a) return;
+    e.preventDefault();
+    abertaPeloSite = true;
+    history.pushState({ colecao: true }, "", "#colecao/" + a.getAttribute("data-cat-id"));
+    lerRota();
+  });
+
+  function voltar() {
+    if (abertaPeloSite && history.state && history.state.colecao) history.back();
+    else {
+      // aberta direto por link: volta para as categorias sem sair do site
+      history.replaceState(null, "", "#colecoes");
+      fecharColecao();
+      document.getElementById("colecoes").scrollIntoView({ behavior: "auto" });
+    }
+  }
+  $("[data-colecao-voltar]").addEventListener("click", voltar);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !painel.hidden) voltar(); });
+  window.addEventListener("popstate", lerRota);
+  window.addEventListener("hashchange", lerRota);
+  if (/^#colecao\//.test(location.hash)) lerRota();
 
   if ("IntersectionObserver" in window && !menosMovimento) {
     var obsRevela = new IntersectionObserver(function (es) {
