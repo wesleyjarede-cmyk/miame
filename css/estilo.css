@@ -216,23 +216,25 @@ button { font: inherit; color: inherit; }
   padding: clamp(56px, 7vw, 104px) 0 clamp(48px, 6vw, 96px);
   overflow: clip;
 }
+/* escrita decorativa: tem o próprio espaço, acima do título (não fica escondida atrás dele) */
 .marca__faixa {
-  position: absolute; left: 0; top: clamp(20px, 3vw, 44px); z-index: 0;
+  position: relative; z-index: 0;
   display: flex; gap: .4em; white-space: nowrap;
   font-family: var(--f-display);
-  font-size: clamp(3.4rem, 1rem + 9vw, 9rem);
-  line-height: .9;
+  font-size: clamp(3.4rem, 1rem + 7vw, 7.5rem);
+  line-height: 1;
+  padding: .04em 0 .1em;
   color: transparent;
-  -webkit-text-stroke: 1.2px rgba(138,130,124,.28);
+  -webkit-text-stroke: 1.3px rgba(138,130,124,.42);
   transform: translateX(var(--desloca, 0)) skewX(var(--inclina));
   will-change: transform;
   user-select: none; pointer-events: none;
 }
-.marca__faixa span:nth-child(2n) { -webkit-text-stroke-color: rgba(255,122,26,.32); }
+.marca__faixa span:nth-child(2n) { -webkit-text-stroke-color: rgba(255,122,26,.5); }
 .marca__miolo {
   position: relative; z-index: 1;
   max-width: 1180px; margin: 0 auto;
-  padding: clamp(36px, 5vw, 72px) clamp(16px, 5vw, 72px) 0;
+  padding: clamp(16px, 2.4vw, 32px) clamp(16px, 5vw, 72px) 0;
   display: grid; align-items: center;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
   gap: clamp(32px, 5vw, 72px);
@@ -717,26 +719,46 @@ html.colecao-aberta .flutuante { transform: translateY(120px); }
   .topo__nav a::after { display: none; }
   .topo__ig { font-family: var(--f-texto) !important; font-size: 1.1rem !important; font-weight: 700 !important; margin-top: 18px; transform: none !important; }
 
-  /* Abertura no celular: vídeo na largura toda, enquadramento próprio
-     (fachada → logo), botão logo abaixo — tudo na primeira tela. */
-  /* recorte justo no celular: do topo da fachada (y=170) até logo abaixo
-     da logo (y=1470). Só sai fundo liso; fachada, personagens e logo inteiros. */
-  .palco { --recorte: 1080 / 1300; height: auto; min-height: 0; display: block; padding: var(--topo) 0 6px; }
-  .palco__cena { container-type: normal; display: block; }
-  .palco__tela { width: 100%; height: auto; }
+  /* Abertura no celular = a primeira tela inteira (só topo, vídeo e botão).
+     Altura: 100svh = altura visível com as barras do navegador abertas.
+     Vídeo: faixa da fachada até logo abaixo da logo (linhas 170→1470 do
+     vídeo), aproximado até 12% para ganhar destaque. A aproximação só tira
+     fachada das laterais — a logo (que vai de 75 a 1005 px) fica inteira. */
+  .palco {
+    min-height: 100vh; min-height: 100svh; height: auto;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: var(--topo) 0 calc(16px + env(safe-area-inset-bottom));
+  }
+  .palco__cena { container-type: normal; display: block; flex: none; }
+  .palco__tela {
+    width: 100%; aspect-ratio: auto;
+    height: min(100vw * 1.348, 100vh - var(--topo) - 100px);
+    height: min(100vw * 1.348, 100svh - var(--topo) - 100px);
+    overflow: hidden;
+  }
   .palco__video, .palco__final {
+    inset: 0 auto; left: 50%; width: auto; max-width: none; height: 100%;
+    aspect-ratio: 1080 / 1300;
+    transform: translateX(-50%);
     object-position: 50% 21.5%;
-    -webkit-mask-image: linear-gradient(180deg, #000 97%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 97%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 97%, transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 97%, transparent 100%);
   }
   .palco__rua { display: none; }
   .palco__luz { width: 100%; opacity: .35; }
-  .palco__acoes { padding-top: 2px; }
+  .palco__acoes { flex: none; padding-top: 12px; }
   .palco__pular { display: none; }
 
-  .marca { padding-top: 10px; }
-  .marca__faixa { top: 0; }
-  .marca__miolo { grid-template-columns: 1fr; gap: 36px; padding-top: 20px; }
+  /* Segunda seção com espaço próprio; "Miami Store" decorativo inteiro, acima do título */
+  .marca { padding-top: 44px; }
+  .marca__faixa {
+    transform: skewX(var(--inclina)) !important;
+    justify-content: center;
+    font-size: 10.6vw;
+    -webkit-text-stroke-width: 1px;
+  }
+  .marca__faixa span:not(:first-child) { display: none; }
+  .marca__miolo { grid-template-columns: 1fr; gap: 36px; padding-top: 14px; }
   .marca__texto .titulo { max-width: 13ch; }
   .marca__fotos { max-width: 360px; }
 
