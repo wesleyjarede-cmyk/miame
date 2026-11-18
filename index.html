@@ -96,6 +96,7 @@
 <main>
   <!-- A. ABERTURA — o vídeo é o protagonista -->
   <section class="palco" id="inicio" aria-label="Abertura Miami Store" data-palco>
+   <div class="palco__cena">
     <canvas class="palco__luz" width="18" height="32" aria-hidden="true" data-luz></canvas>
 
     <!-- A fachada continua para os lados, em traço de lápis, e acende junto com o vídeo -->
@@ -136,16 +137,15 @@
         <source src="videos/abertura-720.mp4" type="video/mp4">
       </video>
       <img class="palco__final" src="img/abertura-final.webp" width="1080" height="1920" alt="" aria-hidden="true" data-final>
+      <!-- aparece só se o navegador bloquear o som automático; qualquer toque na página liga o som -->
+      <p class="palco__dica-som" data-dica-som hidden>
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Toque para ouvir
+      </p>
+    </div>
+   </div>
 
-      <div class="palco__acoes">
-        <a class="botao botao--neon" href="#colecoes" data-entrar>Ver a coleção</a>
-        <div class="palco__mini">
-          <button class="botao-mini" type="button" data-som aria-pressed="false">
-            <span data-som-texto>Ligar som</span>
-          </button>
-          <button class="botao-mini" type="button" data-rever>Ver de novo</button>
-        </div>
-      </div>
+    <div class="palco__acoes">
+      <a class="botao botao--neon" href="#colecoes" data-entrar>Ver a coleção</a>
     </div>
 
     <a class="palco__pular" href="#conteudo" data-pular>Pular abertura</a>
@@ -161,12 +161,17 @@
     <div class="marca__miolo">
       <div class="marca__texto">
         <h2 id="marca-titulo" class="titulo">Streetwear com atitude, do boné ao tênis.</h2>
-        <p>Peças pra montar o visual completo. As novidades chegam primeiro no Instagram da loja.</p>
+        <p>Peças selecionadas e marcas em alta, na loja física em Uberaba e no online. Conforto e qualidade é o lema da casa.</p>
         <a class="botao botao--contorno" data-ig-link target="_blank" rel="noopener">
           <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg>
           <span>Seguir <span data-ig-arroba></span></span>
         </a>
       </div>
+      <figure class="marca__fotos">
+        <img class="marca__foto marca__foto--a" src="img/loja/loja-1.webp" width="640" height="960" alt="Cliente na Miami Store com camiseta Tommy Hilfiger, em frente às araras de camisetas" loading="lazy" decoding="async">
+        <img class="marca__foto marca__foto--b" src="img/loja/loja-2.webp" width="640" height="960" alt="Cliente com moletom Tommy Hilfiger em frente ao provador da Miami Store" loading="lazy" decoding="async">
+        <figcaption class="marca__selo">Dentro da loja</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -214,45 +219,54 @@
   </section>
 
   <!-- F. INSTAGRAM E CONTATO -->
-  <section class="contato" id="contato" aria-labelledby="contato-titulo">
-    <h2 id="contato-titulo" class="sr">Contato</h2>
-    <p class="contato__chamada">Gostou de alguma peça? Chama a gente no direct.</p>
-    <a class="contato__arroba" data-ig-link target="_blank" rel="noopener" aria-label="Abrir Instagram da Miami Store">
-      <span data-ig-arroba></span>
-    </a>
-    <div class="contato__botoes">
-      <a class="botao botao--neon" data-direct target="_blank" rel="noopener">
-        <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg><span>Mandar mensagem</span>
-      </a>
-      <a class="botao botao--contorno" data-ig-link target="_blank" rel="noopener">
-        <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg><span>Ver o Instagram</span>
-      </a>
-      <a class="botao botao--contorno" data-whats target="_blank" rel="noopener" hidden>Chamar no WhatsApp</a>
+  <section class="insta" id="contato" aria-labelledby="insta-titulo">
+    <div class="insta__miolo">
+      <div class="insta__texto">
+        <a class="insta__perfil" data-ig-link target="_blank" rel="noopener" aria-label="Abrir o perfil da Miami Store no Instagram">
+          <span class="insta__avatar"><img src="img/logo-miami-avatar.webp" width="320" height="320" alt="" loading="lazy" decoding="async"></span>
+          <span class="insta__quem">
+            <strong data-ig-arroba></strong>
+            <span>Loja física e online em Uberaba</span>
+          </span>
+        </a>
+        <h2 id="insta-titulo" class="titulo insta__titulo">Os kits novos saem primeiro no Insta.</h2>
+        <p class="insta__sub">Viu uma peça que curtiu? Chama no direct e garante o seu kit.</p>
+        <div class="insta__botoes">
+          <a class="botao botao--neon" data-ig-link target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#ic-instagram"/></svg><span>Seguir no Instagram</span>
+          </a>
+          <a class="botao botao--contorno" data-direct target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#ic-direct"/></svg><span>Mandar direct</span>
+          </a>
+          <a class="botao botao--contorno" data-whats target="_blank" rel="noopener" hidden>Chamar no WhatsApp</a>
+        </div>
+      </div>
+
+      <ul class="insta__grade" aria-label="Posts recentes da Miami Store no Instagram">
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-1.webp" width="520" height="520" alt="Cliente na loja com moletom Puma branco e bermuda" loading="lazy" decoding="async"></a></li>
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-2.webp" width="520" height="520" alt="Kit camiseta Tommy Hilfiger branca, calça jeans escura e tênis" loading="lazy" decoding="async"></a></li>
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-3.webp" width="520" height="520" alt="Kit camiseta listrada azul, calça jeans clara e tênis preto" loading="lazy" decoding="async"></a></li>
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-4.webp" width="520" height="520" alt="Camiseta Lacoste preta e bermuda Lacoste branca" loading="lazy" decoding="async"></a></li>
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-5.webp" width="520" height="520" alt="Kit camiseta preta, calça jeans cinza e tênis" loading="lazy" decoding="async"></a></li>
+        <li><a data-ig-link target="_blank" rel="noopener"><img src="img/instagram/post-6.webp" width="520" height="520" alt="Kit camiseta branca, bermuda Adidas preta e tênis Adidas azul" loading="lazy" decoding="async"></a></li>
+      </ul>
+
+      <dl class="insta__loja" data-dados hidden></dl>
     </div>
-    <dl class="contato__dados" data-dados hidden></dl>
   </section>
 </main>
 
 <footer class="rodape">
-  <svg class="rodape__fachada" viewBox="0 0 600 140" aria-hidden="true">
-    <g class="traco">
-      <path d="M20 130 L580 130"/>
-      <path d="M60 130 L60 40 L540 40 L540 130"/>
-      <path d="M40 40 L560 40 L560 28 L40 28 Z"/>
-      <path d="M110 28 L110 12 L150 12 L150 28 M430 28 L430 16 L470 16 L470 28"/>
-      <path d="M90 60 L230 60 L230 130 M90 60 L90 130 M370 60 L510 60 L510 130 M370 60 L370 130"/>
-      <path d="M235 52 L365 52 L365 84 L235 84 Z"/>
-      <path d="M270 130 L270 96 L330 96 L330 130"/>
-      <path d="M110 78 L110 120 M140 78 L140 120 M170 78 L170 120 M200 78 L200 120"/>
-      <path d="M390 78 L390 120 M420 78 L420 120 M450 78 L450 120 M480 78 L480 120"/>
-    </g>
-    <text x="300" y="74" text-anchor="middle" class="rodape__placa">MIAMI STORE</text>
-  </svg>
-  <div class="rodape__linha">
-    <span class="marca-texto"><span>Miami</span> <span class="marca-texto__laranja">Store</span></span>
+  <a class="rodape__logo" href="#inicio" aria-label="Miami Store, voltar ao início">
+    <img src="img/logo-miami-completa.webp" width="720" height="860" alt="Logo Miami Store: dois personagens em frente à fachada da loja" loading="lazy" decoding="async">
+  </a>
+  <nav class="rodape__nav" aria-label="Rodapé">
+    <a href="#colecoes">Coleções</a>
+    <a href="#vitrine">Vitrine</a>
     <a data-ig-link target="_blank" rel="noopener"><span data-ig-arroba></span></a>
-    <span>© <span data-ano></span> Miami Store</span>
-  </div>
+  </nav>
+  <p class="rodape__endereco" data-rodape-endereco hidden></p>
+  <p class="rodape__copy">© <span data-ano></span> Miami Store</p>
 </footer>
 
 <a class="flutuante" data-direct target="_blank" rel="noopener" aria-label="Mandar mensagem no Instagram da Miami Store" data-flutuante>

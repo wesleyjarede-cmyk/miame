@@ -35,11 +35,18 @@
     });
   }
   var dados = $("[data-dados]");
-  if (dados && (LOJA.endereco || LOJA.horario)) {
+  var mapa = LOJA.endereco ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Miami Store, " + LOJA.endereco) : null;
+  if (dados && (LOJA.endereco || LOJA.horario || LOJA.formato)) {
     var html = "";
-    if (LOJA.endereco) html += "<div><dt>Endereço</dt><dd>" + LOJA.endereco + "</dd></div>";
-    if (LOJA.horario) html += "<div><dt>Horário</dt><dd>" + LOJA.horario + "</dd></div>";
+    if (LOJA.endereco) html += '<div><dt>Endereço</dt><dd><a href="' + mapa + '" target="_blank" rel="noopener">' + escapar(LOJA.endereco) + "</a></dd></div>";
+    if (LOJA.horario) html += "<div><dt>Horário</dt><dd>" + escapar(LOJA.horario) + "</dd></div>";
+    if (LOJA.formato) html += "<div><dt>Atendimento</dt><dd>" + escapar(LOJA.formato) + "</dd></div>";
     dados.innerHTML = html; dados.hidden = false;
+  }
+  var rodEnd = $("[data-rodape-endereco]");
+  if (rodEnd && LOJA.endereco) {
+    rodEnd.innerHTML = '<a href="' + mapa + '" target="_blank" rel="noopener">' + escapar(LOJA.endereco) + "</a>" + (LOJA.horario ? "<br>" + escapar(LOJA.horario) : "");
+    rodEnd.hidden = false;
   }
   var ano = $("[data-ano]"); if (ano) ano.textContent = new Date().getFullYear();
 
@@ -81,8 +88,7 @@
   var imgFinal = $("[data-final]");
   var luz = $("[data-luz]");
   var ctxLuz = luz.getContext("2d");
-  var botaoSom = $("[data-som]");
-  var botaoRever = $("[data-rever]");
+  var dicaSom = $("[data-dica-som]");
   var MOMENTO_LUZ = 3.1; // segundo em que a fachada do vídeo começa a acender
 
   function pintarLuz(fonte) {
@@ -98,44 +104,52 @@
     if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(loopLuz);
     else requestAnimationFrame(loopLuz);
   }
-  function mostrarFinal(rotuloRever) {
+  function mostrarFinal() {
     palco.classList.add("is-final", "is-luz", "is-aceso");
+    esconderDica();
     if (imgFinal.complete) pintarLuz(imgFinal); else imgFinal.addEventListener("load", function () { pintarLuz(imgFinal); }, { once: true });
-    if (rotuloRever) botaoRever.textContent = rotuloRever;
   }
-  function tocar() {
-    palco.classList.remove("is-final", "is-luz", "is-aceso");
-    botaoRever.textContent = "Ver de novo";
-    try { video.currentTime = 0; } catch (e) {}
+
+  /* Som: a preferência é tocar COM som. Os navegadores só deixam isso quando
+     o visitante já interagiu com o site; se bloquearem, o vídeo segue mudo
+     e o primeiro toque/clique/tecla em qualquer lugar da página liga o som
+     (sem reiniciar o vídeo). */
+  var esperandoToque = false;
+  function esconderDica() { dicaSom.hidden = true; }
+  function ligarSomAoInteragir() {
+    if (!esperandoToque) return;
+    esperandoToque = false;
+    ["pointerdown", "keydown", "touchend"].forEach(function (t) { document.removeEventListener(t, ligarSomAoInteragir, true); });
+    if (!video.ended && !video.paused) { video.muted = false; video.volume = 1; }
+    esconderDica();
+  }
+  function aguardarToque() {
+    esperandoToque = true;
+    dicaSom.hidden = false;
+    ["pointerdown", "keydown", "touchend"].forEach(function (t) { document.addEventListener(t, ligarSomAoInteragir, true); });
+  }
+  function tocarComSom() {
+    video.muted = false;
     var p = video.play();
-    if (p && p.catch) p.catch(function () { mostrarFinal("Assistir abertura"); });
+    if (!p || !p.then) return;
+    p.catch(function () {
+      // som bloqueado: toca mudo
+      video.muted = true;
+      var p2 = video.play();
+      if (p2 && p2.then) p2.then(aguardarToque).catch(mostrarFinal);
+    });
   }
 
   video.addEventListener("play", loopLuz);
   video.addEventListener("ended", function () {
     palco.classList.add("is-luz", "is-aceso");
     pintarLuz(video);
-    guardar("miami-viu-abertura", "1");
+    esconderDica();
   });
-  video.addEventListener("error", function () { mostrarFinal("Assistir abertura"); }, true);
+  video.addEventListener("error", mostrarFinal, true);
 
-  // Som: o vídeo tem trilha. Começa mudo (regra dos navegadores) e o visitante liga se quiser.
-  palco.classList.add("tem-som");
-  botaoSom.addEventListener("click", function () {
-    var ligar = video.muted;
-    video.muted = !ligar;
-    botaoSom.setAttribute("aria-pressed", String(ligar));
-    $("[data-som-texto]").textContent = ligar ? "Desligar som" : "Ligar som";
-    if (ligar && (video.ended || palco.classList.contains("is-final"))) tocar();
-  });
-  botaoRever.addEventListener("click", tocar);
-
-  if (menosMovimento || ler("miami-viu-abertura")) {
-    // quem pediu menos movimento, ou já viu a abertura nesta visita, cai direto na logo
-    mostrarFinal("Assistir abertura");
-  } else {
-    tocar();
-  }
+  if (menosMovimento) mostrarFinal(); // quem pediu menos movimento vê direto a logo
+  else tocarComSom();
 
   // Transição de câmera: ao rolar, o palco recua e escurece
   var faixa = $("[data-faixa]");
@@ -161,8 +175,15 @@
   }
   window.addEventListener("scroll", function () { if (!agendado) { agendado = true; requestAnimationFrame(aoRolar); } }, { passive: true });
   window.addEventListener("resize", aoRolar);
+  // o botão flutuante some quando já há um botão de direct na tela (vitrine e Instagram)
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { contatoVisivel = es[0].isIntersecting; aoRolar(); }, { threshold: .2 }).observe(contato);
+    var alvosDirect = [contato, $(".vitrine__cta")];
+    var visiveis = new Set();
+    var obsDirect = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) visiveis.add(e.target); else visiveis.delete(e.target); });
+      contatoVisivel = visiveis.size > 0; aoRolar();
+    }, { threshold: .1 });
+    alvosDirect.forEach(function (el) { if (el) obsDirect.observe(el); });
   }
   aoRolar();
 

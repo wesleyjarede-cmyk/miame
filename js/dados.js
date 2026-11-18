@@ -2,43 +2,41 @@
    DADOS DA LOJA — tudo o que é informação real fica AQUI.
    Para trocar contato, categorias ou produtos, edite só este arquivo.
    (Arquivo comum, sem 'módulos', para o site abrir direto no navegador.)
-   Regra: nada de preço, tamanho, endereço ou telefone inventado.
+   Regra: nada de preço, tamanho ou telefone inventado.
    Campo vazio (null) = o site esconde aquela informação.
    ========================================================= */
 
+/* Fonte: bio e legendas dos posts do Instagram @miamistore.ura (páginas salvas em 17/11/2026). */
 window.LOJA = {
   nome: "Miami Store",
-  instagram: "miamistore.ura",           // confirmado pelo dono
-  whatsapp: null,                        // [PREENCHER] ex.: "34999999999" (só números, com DDD)
-  endereco: null,                        // [PREENCHER] ex.: "Rua ..., 123 — Centro, Cidade/UF"
-  horario: null,                         // [PREENCHER] ex.: "Seg a sáb, 9h às 19h"
+  instagram: "miamistore.ura",
+  whatsapp: null,                                         // [PREENCHER] só números, com DDD. Ex.: "34999999999"
+  endereco: "Avenida Reinaldo Boaretto, 797, Uberaba, MG", // bio do Instagram
+  horario: "Segunda a sábado, das 10h às 19h",            // legenda do post de 09/2026
+  formato: "Loja física e online",                        // bio do Instagram
 };
 
-/* Categorias — [CONFIRMAR] com o dono.
-   Hoje vêm das roupas que os personagens da animação usam
-   (boné, moletom, camiseta, calça cargo, tênis, acessórios),
-   porque o Instagram não mostrou as fotos sem login.
-   foto: caminho da imagem (ex.: "img/colecoes/bones.webp"). Sem foto = aparece o desenho a traço. */
+/* Categorias — com base nas peças que a loja posta.
+   foto: imagem real (posts da loja). formato não é mais usado (o mosaico é fixo). */
 window.CATEGORIAS = [
-  { id: "bones",      nome: "Bonés",      icone: "bone",     foto: null, formato: "alto" },
-  { id: "moletons",   nome: "Moletons",   icone: "moletom",  foto: null, formato: "largo" },
-  { id: "camisetas",  nome: "Camisetas",  icone: "camiseta", foto: null, formato: "quadrado" },
-  { id: "tenis",      nome: "Tênis",      icone: "tenis",    foto: null, formato: "largo" },
-  { id: "calcas",     nome: "Calças e bermudas", icone: "calca", foto: null, formato: "alto" },
-  { id: "acessorios", nome: "Acessórios", icone: "corrente", foto: null, formato: "quadrado" },
+  { id: "kits",      nome: "Kits completos", icone: "camiseta", foto: "img/colecoes/kits.webp" },
+  { id: "camisetas", nome: "Camisetas",      icone: "camiseta", foto: "img/colecoes/camisetas.webp" },
+  { id: "moletons",  nome: "Moletons",       icone: "moletom",  foto: "img/colecoes/moletons.webp" },
+  { id: "calcas",    nome: "Calças",         icone: "calca",    foto: "img/colecoes/calcas.webp" },
+  { id: "bermudas",  nome: "Bermudas",       icone: "calca",    foto: "img/colecoes/bermudas.webp" },
+  { id: "tenis",     nome: "Tênis",          icone: "tenis",    foto: "img/colecoes/tenis.webp" },
 ];
 
-/* Vitrine 3D — peças em destaque.
-   Preencha com as peças reais quando tiver as fotos:
-   { nome: "Moletom ...", categoria: "Moletons", icone: "moletom", foto: "img/produtos/moletom-1.webp", preco: "R$ 199,90" }
-   preco: só coloque se a loja confirmou. null = não mostra preço. */
+/* Vitrine 3D — peças reais dos posts da loja.
+   nome: descrição do que aparece na foto (não é nome comercial oficial).
+   preco: só coloque se a loja confirmar. null = não mostra preço. */
 window.PRODUTOS = [
-  { nome: null, categoria: "Bonés",      icone: "bone",     foto: null, preco: null },
-  { nome: null, categoria: "Moletons",   icone: "moletom",  foto: null, preco: null },
-  { nome: null, categoria: "Camisetas",  icone: "camiseta", foto: null, preco: null },
-  { nome: null, categoria: "Tênis",      icone: "tenis",    foto: null, preco: null },
-  { nome: null, categoria: "Calças e bermudas", icone: "calca", foto: null, preco: null },
-  { nome: null, categoria: "Acessórios", icone: "corrente", foto: null, preco: null },
-  { nome: null, categoria: "Camisetas",  icone: "camiseta", foto: null, preco: null },
-  { nome: null, categoria: "Moletons",   icone: "moletom",  foto: null, preco: null },
+  { nome: "Moletom Nike branco",            categoria: "Moletons",       icone: "moletom",  foto: "img/produtos/moletom-nike-branco.webp",        preco: null },
+  { nome: "Tênis Nike preto e vermelho",    categoria: "Tênis",          icone: "tenis",    foto: "img/produtos/tenis-nike-preto-vermelho.webp",  preco: null },
+  { nome: "Camiseta e bermuda jeans",       categoria: "Kits completos", icone: "camiseta", foto: "img/produtos/kit-camiseta-bermuda-jeans.webp", preco: null },
+  { nome: "Polos Zara",                     categoria: "Camisetas",      icone: "camiseta", foto: "img/produtos/polos-zara.webp",                 preco: null },
+  { nome: "Moletom Nike cinza",             categoria: "Moletons",       icone: "moletom",  foto: "img/produtos/moletom-nike-cinza.webp",         preco: null },
+  { nome: "Tênis Tommy Hilfiger branco",    categoria: "Tênis",          icone: "tenis",    foto: "img/produtos/tenis-tommy-branco.webp",         preco: null },
+  { nome: "Moletom Hilfiger e calça jeans", categoria: "Calças",         icone: "moletom",  foto: "img/produtos/kit-moletom-hilfiger.webp",       preco: null },
+  { nome: "Camiseta e bermuda azul",        categoria: "Bermudas",       icone: "camiseta", foto: "img/produtos/kit-camiseta-bermuda-azul.webp",  preco: null },
 ];
